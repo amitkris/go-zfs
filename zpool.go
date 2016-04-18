@@ -1,9 +1,5 @@
 package zfs
 
-import (
-	"strings"
-)
-
 // ZFS zpool states, which can indicate if a pool is online, offline,
 // degraded, etc.  More information regarding zpool states can be found here:
 // https://docs.oracle.com/cd/E19253-01/819-5461/gamno/index.html.
@@ -30,11 +26,6 @@ type Zpool struct {
 	Leaked        uint64
 	DedupRatio    float64
 }
-
-// List of Zpool properties to retrieve from zpool list command on a non-Solaris platform
-var zpoolPropList = []string{"name", "health", "allocated", "size", "free"}
-var zpoolPropListOptions = strings.Join(zpoolPropList, ",")
-var zpoolArgs = []string{"get", "-p", zpoolPropListOptions}
 
 // zpool is a helper function to wrap typical calls to zpool.
 func zpool(arg ...string) ([][]string, error) {
